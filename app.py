@@ -2,10 +2,7 @@ import streamlit as st
 import pandas as pd
 import joblib
 import os
-
-# -------------------------
 # Load Model & Preprocessor
-# -------------------------
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -18,9 +15,7 @@ preprocessor = joblib.load(PREPROCESSOR_PATH)
 st.title("🏠 House Price Prediction")
 st.write("Enter house details to predict house price")
 
-# -------------------------
 # User Inputs
-# -------------------------
 
 posted_by = st.selectbox(
     "Posted By",
@@ -82,9 +77,7 @@ latitude = st.number_input(
     format="%.6f"
 )
 
-# -------------------------
 # Prediction
-# -------------------------
 
 if st.button("Predict Price"):
 
