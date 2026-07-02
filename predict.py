@@ -2,9 +2,7 @@ import pandas as pd
 import joblib
 import os
 
-# ----------------------------
 # Load Model and Preprocessor
-# ----------------------------
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -14,10 +12,7 @@ PREPROCESSOR_PATH = os.path.join(BASE_DIR, "models", "preprocessor.pkl")
 model = joblib.load(MODEL_PATH)
 preprocessor = joblib.load(PREPROCESSOR_PATH)
 
-# ----------------------------
 # New House Data
-# ----------------------------
-
 new_house = pd.DataFrame([
     {
         "POSTED_BY": "Owner",
@@ -51,16 +46,11 @@ new_house = new_house[
     ]
 ]
 
-# ----------------------------
 # Preprocess Input
-# ----------------------------
 
 new_house_processed = preprocessor.transform(new_house)
 
-# ----------------------------
 # Predict
-# ----------------------------
-
 prediction = model.predict(new_house_processed)
 
 print("\nPredicted House Price:")
