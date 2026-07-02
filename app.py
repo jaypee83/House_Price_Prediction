@@ -6,7 +6,7 @@ import joblib
 # Load model
 
 model = joblib.load(
-    "models/best_house_price_model.pkl"
+    "models/best_model.pkl"
 )
 
 
