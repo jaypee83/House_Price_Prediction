@@ -3,15 +3,20 @@ import pandas as pd
 import joblib
 import os
 
-# Load model safely
+# -------------------------
+# Load Model & Preprocessor
+# -------------------------
+
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-MODEL_PATH = os.path.join(BASE_DIR, "best_model.pkl")
+MODEL_PATH = os.path.join(BASE_DIR, "models", "best_model.pkl")
+PREPROCESSOR_PATH = os.path.join(BASE_DIR, "models", "preprocessor.pkl")
 
 model = joblib.load(MODEL_PATH)
+preprocessor = joblib.load(PREPROCESSOR_PATH)
 
 st.title("🏠 House Price Prediction")
-st.write("Enter house details to predict price")
+st.write("Enter house details to predict house price")
 
 # -------------------------
 # User Inputs
@@ -46,6 +51,7 @@ bhk_type = st.selectbox(
 
 square_ft = st.number_input(
     "Square Feet",
+    min_value=100,
     value=1000
 )
 
@@ -66,12 +72,14 @@ address = st.text_input(
 
 longitude = st.number_input(
     "Longitude",
-    value=80.2707
+    value=80.2707,
+    format="%.6f"
 )
 
 latitude = st.number_input(
     "Latitude",
-    value=13.0827
+    value=13.0827,
+    format="%.6f"
 )
 
 # -------------------------
@@ -81,20 +89,20 @@ latitude = st.number_input(
 if st.button("Predict Price"):
 
     data = pd.DataFrame([{
-        "POSTED_BY": str(posted_by),
-        "UNDER_CONSTRUCTION": int(under_construction),
-        "RERA": int(rera),
-        "BHK_NO.": int(bhk),
-        "BHK_OR_RK": str(bhk_type),
-        "SQUARE_FT": float(square_ft),
-        "READY_TO_MOVE": int(ready),
-        "RESALE": int(resale),
-        "ADDRESS": str(address),
-        "LONGITUDE": float(longitude),
-        "LATITUDE": float(latitude)
+        "POSTED_BY": posted_by,
+        "UNDER_CONSTRUCTION": under_construction,
+        "RERA": rera,
+        "BHK_NO.": bhk,
+        "BHK_OR_RK": bhk_type,
+        "SQUARE_FT": square_ft,
+        "READY_TO_MOVE": ready,
+        "RESALE": resale,
+        "ADDRESS": address,
+        "LONGITUDE": longitude,
+        "LATITUDE": latitude
     }])
 
-    # FIX COLUMN ORDER (VERY IMPORTANT)
+    # Keep the same column order used during training
     data = data[[
         "POSTED_BY",
         "UNDER_CONSTRUCTION",
@@ -109,6 +117,10 @@ if st.button("Predict Price"):
         "LATITUDE"
     ]]
 
-    prediction = model.predict(data)
+    # Preprocess the input
+    data_processed = preprocessor.transform(data)
 
-    st.success(f"Estimated Price: {prediction[0]:.2f} Lakhs")
+    # Predict
+    prediction = model.predict(data_processed)
+
+    st.success(f"🏠 Estimated House Price: ₹ {prediction[0]:,.2f} Lakhs")
