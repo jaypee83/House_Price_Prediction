@@ -6,8 +6,6 @@ from sklearn.preprocessing import OneHotEncoder
 from sklearn.pipeline import Pipeline
 from sklearn.impute import SimpleImputer
 
-
-
 def load_data():
 
     df = pd.read_csv(
@@ -15,7 +13,6 @@ def load_data():
     )
 
     return df
-
 
 
 def preprocess_data(df):
@@ -35,8 +32,6 @@ def preprocess_data(df):
 
     y = df["TARGET(PRICE_IN_LACS)"]
 
-
-
     # Identify columns
 
     categorical_columns = X.select_dtypes(
@@ -48,8 +43,6 @@ def preprocess_data(df):
         exclude=["object"]
     ).columns
 
-
-
     # Numerical preprocessing
 
     numerical_pipeline = Pipeline(
@@ -60,7 +53,6 @@ def preprocess_data(df):
             )
         ]
     )
-
 
     # Categorical preprocessing
 
@@ -80,8 +72,6 @@ def preprocess_data(df):
         ]
     )
 
-
-
     # Combine preprocessing
 
     preprocessor = ColumnTransformer(
@@ -100,8 +90,6 @@ def preprocess_data(df):
         ]
     )
 
-
-
     # Train test split
 
     X_train, X_test, y_train, y_test = train_test_split(
@@ -110,7 +98,6 @@ def preprocess_data(df):
         test_size=0.2,
         random_state=42
     )
-
 
     return (
         preprocessor,
@@ -121,25 +108,17 @@ def preprocess_data(df):
     )
 
 
-
-
 if __name__ == "__main__":
-
 
     df = load_data()
 
-
     preprocessor, X_train, X_test, y_train, y_test = preprocess_data(df)
-
-
 
     print("Training data:")
     print(X_train.shape)
 
-
     print("\nTesting data:")
     print(X_test.shape)
-
 
     print("\nTarget training:")
     print(y_train.shape)
