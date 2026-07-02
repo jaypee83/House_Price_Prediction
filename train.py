@@ -69,7 +69,6 @@ for name, model in models.items():
 
     results.append([name, mae, rmse, r2])
 
-    # ❌ DO NOT SAVE FULL PIPELINE
     # ✔ Save only model part
     joblib.dump(
         pipeline.named_steps["model"],
