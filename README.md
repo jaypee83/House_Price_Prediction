@@ -116,9 +116,9 @@ A gradient boosting model designed for high predictive performance.
 
 | Model | MAE | RMSE | R² Score |
 |---|---|---|---|
-| Linear Regression | 138.85 | 631.35 | 0.272 |
-| Random Forest | 32.22 | 233.04 | 0.901 |
-| XGBoost | 45.20 | 398.33 | 0.710 |
+| Linear Regression | 138.84 | 631.35 | 0.272 |
+| Random Forest | 40.47 | 235.69 | 0.898 |
+| XGBoost | 45.79 | 408.22 | 0.695 |
 
 ---
 
@@ -165,7 +165,7 @@ House_Price_Prediction/
 │ └── House Price.csv
 │
 ├── models/
-│ └── best_house_price_model.pkl
+│ └── best_model.pkl
 │
 ├── src/
 │ ├── data_preprocessing.py
