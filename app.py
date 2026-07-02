@@ -4,11 +4,9 @@ import joblib
 import os
 
 # Load model safely
-MODEL_PATH = os.path.join(
-    os.path.dirname(__file__),
-    "models",
-    "best_house_price_model.pkl"
-)
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+MODEL_PATH = os.path.join(BASE_DIR, "best_model.pkl")
 
 model = joblib.load(MODEL_PATH)
 
